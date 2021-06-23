@@ -1,0 +1,8 @@
+{
+  "name": "zustand-constate",
+  "version": "1.0.0",
+  "main": "zustand-constate.tsx",
+  "repository": "https://github.com/ntvinhit/zustand-constate.git",
+  "author": "ntvinh.it@gmail.com <ntvinh.it@gmail.com>",
+  "license": "MIT"
+}
