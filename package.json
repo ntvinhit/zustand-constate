@@ -4,5 +4,9 @@
   "main": "zustand-constate.tsx",
   "repository": "https://github.com/ntvinhit/zustand-constate.git",
   "author": "ntvinh.it@gmail.com <ntvinh.it@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "zustand": "^3.5.4",
+    "react": "^16.13.1"
+  }
 }
