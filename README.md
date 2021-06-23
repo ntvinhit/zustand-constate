@@ -83,7 +83,7 @@ const Example = () => {
 };
 ```
 
-Hmm, if you want some effect, like increase the count for each three seconds? Let's use the power of zustand.
+Hmm, if you want some effect, like increase the count for each three seconds? Let's use the power of ```constate```.
 
 Just add a hook creation to the second parameter of ```createZustandConstate```
 
