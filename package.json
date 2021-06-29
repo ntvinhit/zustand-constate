@@ -1,12 +1,14 @@
 {
   "name": "zustand-constate",
   "version": "1.0.0",
-  "main": "zustand-constate.tsx",
+  "main": "./dist/zustand-constate.js",
+  "types": "./dist/zustand-constate.d.ts",
   "repository": "https://github.com/ntvinhit/zustand-constate.git",
   "author": "ntvinh.it@gmail.com <ntvinh.it@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "install": "tsc ./zustand-constate.tsx --declaration --allowJs --outDir dist"
   },
   "dependencies": {
     "react": "^17.0.2",
