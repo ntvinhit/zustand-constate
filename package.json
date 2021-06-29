@@ -5,8 +5,28 @@
   "repository": "https://github.com/ntvinhit/zustand-constate.git",
   "author": "ntvinh.it@gmail.com <ntvinh.it@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
-    "zustand": "^3.5.4",
-    "react": "^16.13.1"
+    "react": "^17.0.2",
+    "zustand": "^3.5.4"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@testing-library/react": "^12.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.11",
+    "jest": "^27.0.6",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.3.4"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleDirectories": [
+      "node_modules"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 import create from 'zustand';
 import createContext from 'zustand/context';
 import * as React from 'react';
-import {ReactNode, useLayoutEffect, useState} from 'react';
+import {ReactNode, useLayoutEffect} from 'react';
 import {
   EqualityChecker,
   State,
@@ -25,7 +25,7 @@ export function createZustandConstate<
   TState extends State,
   Props extends Record<string, any>
 >(
-  createState: StateCreator<TState>,
+  createState?: StateCreator<TState>,
   useValue?: (
     props: Props & {useStore: CreateContextUseStore<any, TState>},
   ) => any,
@@ -52,16 +52,17 @@ export function createZustandConstate<
     return null;
   };
 
+  createState = createState || (() => ({}) as TState);
+
+  const createStore = () => {
+    return create<TState>((set, get, api) => ({
+      ...createState!(set, get, api),
+      $sync: (props: Partial<Props>) => set((state) => ({...state, ...props})),
+    }));
+  };
+
   const Provider = (props: Props & {children: ReactNode}) => {
     const {children, ...propsWithoutChildren} = props;
-
-    const [createStore] = useState(() => () => {
-      return create<TState>((set, get, api) => ({
-        ...createState(set, get, api),
-        $sync: (props: Partial<Props>) =>
-          set((state) => ({...state, ...props})),
-      }));
-    });
 
     return (
       // @ts-ignore
