@@ -18,6 +18,13 @@ type CreateContextUseStore<StateSlice, TState extends State> = (
   equalityFn?: EqualityChecker<StateSlice>,
 ) => StateSlice;
 
+type CreateContextUSeStoreApi<TState, Props> = () => {
+  getState: import("zustand").GetState<LocalUseStore<TState, Props>>;
+  setState: import("zustand").SetState<LocalUseStore<TState, Props>>;
+  subscribe: import("zustand").Subscribe<LocalUseStore<TState, Props>>;
+  destroy: import("zustand").Destroy;
+}
+
 const syncSelector = <TState, Props>(store: LocalUseStore<TState, Props>) =>
   store.$sync;
 
@@ -27,13 +34,13 @@ export function createZustandConstate<
 >(
   createState?: StateCreator<TState>,
   useValue?: (
-    props: Props & {useStore: CreateContextUseStore<any, TState>},
+    props: Props & {useStore: CreateContextUseStore<any, TState>, useStoreApi: CreateContextUSeStoreApi<TState, Props>},
   ) => any,
 ) {
-  const {Provider: ZustandProvider, useStore} = createContext<
+  const {Provider: ZustandProvider, useStore, useStoreApi} = createContext<
     LocalUseStore<TState, Props>
   >();
-
+  
   const Hook = (props: Props) => {
     const sync = useStore(syncSelector);
 
@@ -42,7 +49,7 @@ export function createZustandConstate<
     }, Object.values(props));
 
     if (useValue) {
-      const returned = useValue({...props, useStore});
+      const returned = useValue({...props, useStore, useStoreApi});
 
       useLayoutEffect(() => {
         if (returned && typeof returned === 'object') sync(returned);
@@ -77,6 +84,7 @@ export function createZustandConstate<
   return {
     Provider,
     useStore,
+    useStoreApi
   };
 }
 
