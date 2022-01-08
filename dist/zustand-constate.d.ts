@@ -17,7 +17,7 @@ export declare function createZustandConstate<TState extends State, Props extend
     Provider: (props: Props & {
         children: ReactNode;
     }) => JSX.Element;
-    useStore: <StateSlice>(selector?: StateSelector<LocalUseStore<TState, Props>, StateSlice>, equalityFn?: EqualityChecker<StateSlice>) => StateSlice;
+    useStore: import("zustand/context").UseContextStore<LocalUseStore<TState, Props>>;
     useStoreApi: () => {
         getState: import("zustand").GetState<LocalUseStore<TState, Props>>;
         setState: import("zustand").SetState<LocalUseStore<TState, Props>>;
