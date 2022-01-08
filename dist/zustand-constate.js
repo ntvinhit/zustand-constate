@@ -54,11 +54,9 @@ function createZustandConstate(createState, useValue) {
         var children = props.children, propsWithoutChildren = __rest(props, ["children"]);
         return (
         // @ts-ignore
-        <ZustandProvider createStore={createStore}>
-        {/* @ts-ignore*/}
-        <Hook {...propsWithoutChildren}/>
-        {children}
-      </ZustandProvider>);
+        React.createElement(ZustandProvider, { createStore: createStore },
+            React.createElement(Hook, __assign({}, propsWithoutChildren)),
+            children));
     };
     return {
         Provider: Provider,

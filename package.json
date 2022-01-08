@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "install": "tsc ./zustand-constate.tsx --declaration --allowJs --outDir dist"
+    "install": "tsc ./zustand-constate.tsx --declaration --allowJs --jsx react --outDir dist"
   },
   "dependencies": {
     "react": "^17.0.2",
