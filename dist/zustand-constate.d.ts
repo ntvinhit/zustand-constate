@@ -10,7 +10,7 @@ export declare function createZustandConstate<TState extends unknown, Props exte
 }) => any): {
     Provider: (props: Props & {
         children: ReactNode;
-    }) => import("react").JSX.Element;
+    }) => JSX.Element;
     useStore: (selector: any) => unknown;
 };
 export default createZustandConstate;

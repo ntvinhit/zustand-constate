@@ -1,14 +1,4 @@
 "use strict";
-// import { create } from "zustand";
-// import createContext from "zustand/context";
-// import * as React from "react";
-// import { type ReactNode, useLayoutEffect } from "react";
-// import type {
-// 	EqualityChecker,
-// 	State,
-// 	StateCreator,
-// 	StateSelector,
-// } from "zustand/vanilla";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -33,77 +23,6 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createZustandConstate = createZustandConstate;
-// export type LocalUseStore<TState, Props> = TState & {
-// 	$sync: (props: Props) => void;
-// };
-// type CreateContextUseStore<StateSlice, TState extends State> = (
-// 	selector?: StateSelector<TState, StateSlice> | undefined,
-// 	equalityFn?: (StateSlice: TState)//EqualityChecker<StateSlice>,
-// ) => StateSlice;
-// type CreateContextUSeStoreApi<TState, Props> = () => {
-// 	getState: import("zustand").GetState<LocalUseStore<TState, Props>>;
-// 	setState: import("zustand").SetState<LocalUseStore<TState, Props>>;
-// 	subscribe: import("zustand").Subscribe<LocalUseStore<TState, Props>>;
-// 	destroy: import("zustand").Destroy;
-// };
-// const syncSelector = <TState, Props>(store: LocalUseStore<TState, Props>) =>
-// 	store.$sync;
-// export function createZustandConstate<
-// 	TState extends State,
-// 	Props extends Record<string, any>,
-// >(
-// 	createState?: StateCreator<TState>,
-// 	useValue?: (
-// 		props: Props & {
-// 			useStore: CreateContextUseStore<any, TState>;
-// 			useStoreApi: CreateContextUSeStoreApi<TState, Props>;
-// 		},
-// 	) => any,
-// ) {
-// 	const {
-// 		Provider: ZustandProvider,
-// 		useStore,
-// 		useStoreApi,
-// 	} = createContext<LocalUseStore<TState, Props>>();
-// 	const Hook = (props: Props) => {
-// 		const sync = useStore(syncSelector);
-// 		useLayoutEffect(() => {
-// 			sync(props);
-// 		}, Object.values(props));
-// 		if (useValue) {
-// 			const returned = useValue({ ...props, useStore, useStoreApi });
-// 			useLayoutEffect(() => {
-// 				if (returned && typeof returned === "object") sync(returned);
-// 			}, [returned]);
-// 		}
-// 		return null;
-// 	};
-// 	createState = createState || (() => ({}) as TState);
-// 	const createStore = () => {
-// 		return create<TState>((set, get, api) => ({
-// 			...createState!(set, get, api),
-// 			$sync: (props: Partial<Props>) =>
-// 				set((state) => ({ ...state, ...props })),
-// 		}));
-// 	};
-// 	const Provider = (props: Props & { children: ReactNode }) => {
-// 		const { children, ...propsWithoutChildren } = props;
-// 		return (
-// 			// @ts-ignore
-// 			<ZustandProvider createStore={createStore}>
-// 				{/* @ts-ignore*/}
-// 				<Hook {...propsWithoutChildren} />
-// 				{children}
-// 			</ZustandProvider>
-// 		);
-// 	};
-// 	return {
-// 		Provider,
-// 		useStore,
-// 		useStoreApi,
-// 	};
-// }
-// export default createZustandConstate;
 var react_1 = require("react");
 var zustand_1 = require("zustand");
 var traditional_1 = require("zustand/traditional");
@@ -122,13 +41,14 @@ function createZustandConstate(createState, useValue) {
     };
     var Hook = function (props) {
         var sync = useStoreInContext(syncSelector);
+        var storeApi = (0, react_1.useContext)(StoreContext);
         (0, react_1.useLayoutEffect)(function () {
             // @ts-ignore
             sync(props);
         }, Object.values(props));
         if (useValue) {
             // @ts-ignore
-            var returned_1 = useValue(__assign(__assign({}, props), { useStoreInContext: useStoreInContext, useStoreApi: useStoreApi }));
+            var returned_1 = useValue(__assign(__assign({}, props), { useStore: useStoreInContext, useStoreApi: storeApi }));
             (0, react_1.useLayoutEffect)(function () {
                 // @ts-ignore
                 if (returned_1 && typeof returned_1 === 'object')
@@ -148,8 +68,8 @@ function createZustandConstate(createState, useValue) {
         }
         return (
         // @ts-ignore
-        React.createElement(StoreContext.Provider, { value: storeRef.current },
-            React.createElement(Hook, __assign({}, propsWithoutChildren)),
+        react_1.default.createElement(StoreContext.Provider, { value: storeRef.current },
+            react_1.default.createElement(Hook, __assign({}, propsWithoutChildren)),
             children));
     };
     return {
